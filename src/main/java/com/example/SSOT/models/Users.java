@@ -2,23 +2,25 @@ package com.example.SSOT.models;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 public class Users {
-	private static Map<UUID, User> userList;
+	private static Map<String, User> userList;
 	static {
 		userList = new HashMap<>();
 	}
-	public static Map<UUID, User> getUserList() {
+	public static Map<String, User> getUserList() {
 		return userList;
 	}
-	public static void setUserList(Map<UUID, User> userList) {
+	public static void setUserList(Map<String, User> userList) {
 		Users.userList = userList;
 	}
-	public static User getUser(UUID userId) {
-		return userList.get(userId);
+	public static User getUser(String email) {
+		return userList.get(email);
 	}
 	public static void addUser(User user) {
-		userList.put(user.getUserId(), user);
+		userList.put(user.getEmail(), user);
+	}
+	public static void deleteUser(String email) {
+		userList.remove(email);
 	}
 }

@@ -4,10 +4,12 @@ import java.util.UUID;
 
 public class User {
 	private UUID userId;
+	private String email;
 	private String firstName;
 	private String lastName;
 	private int contactNo;
 	private Address address;
+	private Notifications notifications;
 	private EmergencyContacts emergencyContacts;
 	public User(String firstName, String lastName) {
 		super();
@@ -16,6 +18,18 @@ public class User {
 		this.lastName = lastName;
 		this.address = new Address();
 		this.emergencyContacts = new EmergencyContacts();
+	}
+	public Notifications getNotifications() {
+		return notifications;
+	}
+	public void setNotifications(Notifications notifications) {
+		this.notifications = notifications;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public UUID getUserId() {
 		return userId;
