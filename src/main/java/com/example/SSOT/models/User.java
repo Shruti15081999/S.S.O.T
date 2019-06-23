@@ -10,6 +10,7 @@ public class User {
 	private int contactNo;
 	private Address address;
 	private Notifications notifications;
+	private Location location;
 	private EmergencyContacts emergencyContacts;
 	public User(String firstName, String lastName) {
 		super();
@@ -18,6 +19,12 @@ public class User {
 		this.lastName = lastName;
 		this.address = new Address();
 		this.emergencyContacts = new EmergencyContacts();
+	}
+	public Location getLocation() {
+		return location;
+	}
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 	public Notifications getNotifications() {
 		return notifications;

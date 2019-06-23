@@ -20,8 +20,11 @@ import com.example.SSOT.models.rest.EditUserResponse;
 import com.example.SSOT.models.rest.NewUserRequest;
 import com.example.SSOT.models.rest.NewUserResponse;
 import com.example.SSOT.models.rest.ResponseJSON;
+import com.example.SSOT.models.rest.UpdateStatusResponse;
 import com.example.SSOT.models.rest.UserDetailsResponse;
+import com.example.SSOT.models.rest.UserNotificationResponse;
 import com.example.SSOT.services.EmergencyContactService;
+import com.example.SSOT.services.NotificationService;
 import com.example.SSOT.services.UserService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -56,5 +59,15 @@ public class controllers {
 	public ResponseEntity<ResponseJSON> deleteEmergencyContact(@RequestBody DeleteEmergencyContactRequest deleteEmergencyContactRequest) {
 		DeleteEmergencyContactResponse deleteEmergencyContactResponse = EmergencyContactService.deleteEmergencyContact(deleteEmergencyContactRequest);
 		return new ResponseEntity<ResponseJSON>(deleteEmergencyContactResponse, deleteEmergencyContactResponse.getHttpStatus());
+	}
+	@GetMapping(value = "/api/notification/userNotifications")
+	public ResponseEntity<ResponseJSON> userNotifications(@RequestParam(required = true) String email) {
+		UserNotificationResponse userNotificationResponse = NotificationService.getUserNotifications(email);
+		return new ResponseEntity<ResponseJSON>(userNotificationResponse, userNotificationResponse.getHttpStatus());
+	}
+	@GetMapping(value = "/api/notification/updateStatus")
+	public ResponseEntity<ResponseJSON> updateStatus(@RequestParam(required = true) String email) {
+		UpdateStatusResponse updateStatusResponse = NotificationService.updateStatus(email);
+		return new ResponseEntity<ResponseJSON>(updateStatusResponse, updateStatusResponse.getHttpStatus());
 	}
 }
