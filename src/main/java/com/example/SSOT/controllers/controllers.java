@@ -31,7 +31,8 @@ import com.example.SSOT.services.UserService;
 @Controller
 public class controllers {
 	@GetMapping(value = "/api/user/userDetails")
-	public ResponseEntity<ResponseJSON> userDetails(@RequestParam(required = true) String email) {
+	public ResponseEntity<ResponseJSON> userDetails(@RequestParam String email) {
+		System.out.println(email);
 		UserDetailsResponse userDetailsResponse = UserService.getUserDetails(email);
 		return new ResponseEntity<ResponseJSON>(userDetailsResponse, userDetailsResponse.getHttpStatus());
 	}
