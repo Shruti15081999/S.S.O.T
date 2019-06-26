@@ -13,8 +13,14 @@ public class UserDetailsResponse extends ResponseJSON{
 	public UserDetailsResponse(HttpStatus httpStatus, String message, User user) {
 		super(httpStatus);
 		this.message = message;
-		this.user = user;
-		this.userID = user.getUserId();
+		if (user != null) {
+			this.user = user;
+			this.userID = user.getUserId();
+		}
+		else {
+			this.user = null;
+			this.userID = null;
+		}
 	}
 	public String getMessage() {
 		return message;
