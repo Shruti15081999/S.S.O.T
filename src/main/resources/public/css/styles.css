@@ -1,0 +1,12 @@
+h2 {
+    font-family: 'Courier New', Courier, monospace;
+    color: crimson;
+    font-size: 100%;
+    font-weight: bolder;
+}
+body {
+    background-color: rgb(184, 255, 231);
+}
+button, input {
+    background-color: rgb(90, 166, 252);
+}
