@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 
 import com.example.SSOT.exceptions.NullValueException;
+import com.example.SSOT.exceptions.UserAlreadyExists;
 import com.example.SSOT.exceptions.UserNotFoundException;
 import com.example.SSOT.models.User;
 import com.example.SSOT.models.Users;
@@ -45,14 +46,16 @@ public class UserService {
 				throw new NullValueException("No Last Name provided");
 			} else if (newUserRequest.getEmail() == null) {
 				throw new NullValueException("No Email provided");
+			} else if (Users.getUserList().containsKey((newUserRequest.getEmail()))) {
+				throw new UserAlreadyExists("User with email " + newUserRequest.getEmail() + " already exists");
 			}
-			User user = new User(newUserRequest.getFirstName(), newUserRequest.getLastName());
+			User user = new User(newUserRequest.getFirstName(), newUserRequest.getLastName(), newUserRequest.getEmail());
 			Users.addUser(user);
 			System.out.println(user);
-			return new NewUserResponse(HttpStatus.OK, "User created with email" + newUserRequest.getEmail(), user.getUserId());
+			return new NewUserResponse(HttpStatus.OK, "User created with email " + newUserRequest.getEmail(), user.getUserId());
 		} catch(Exception e) {
 			System.out.println(e);
-			if (e instanceof NullValueException) {
+			if (e instanceof NullValueException || e instanceof UserAlreadyExists) {
 				return new NewUserResponse(HttpStatus.BAD_REQUEST, e.getMessage(), null);
 			} else {
 				return new NewUserResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Some error occured", null);
@@ -64,7 +67,7 @@ public class UserService {
 			if (deleteUserRequest.getEmail() == null) {
 				throw new NullValueException("No Email provided");
 			} else if(!Users.getUserList().containsKey(deleteUserRequest.getEmail())) {
-				throw new UserNotFoundException("No User with email " + deleteUserRequest.getEmail() + "exists");
+				throw new UserNotFoundException("No User with email " + deleteUserRequest.getEmail() + " exists");
 			}
 			User user = Users.getUser(deleteUserRequest.getEmail());
 			System.out.println(user);
@@ -89,7 +92,7 @@ public class UserService {
 			if (editUserRequest.getEmail() == null) {
 				throw new NullValueException("No Email provided");
 			} else if(!Users.getUserList().containsKey(editUserRequest.getEmail())) {
-				throw new UserNotFoundException("No User with email " + editUserRequest.getEmail() + "exists");
+				throw new UserNotFoundException("No User with email " + editUserRequest.getEmail() + " exists");
 			}
 			User user = Users.getUser(editUserRequest.getEmail());
 			System.out.println(user);

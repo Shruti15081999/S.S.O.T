@@ -12,11 +12,12 @@ public class User {
 	private Notifications notifications;
 	private Location location;
 	private EmergencyContacts emergencyContacts;
-	public User(String firstName, String lastName) {
+	public User(String firstName, String lastName, String email) {
 		super();
 		this.userId = UUID.randomUUID();
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.email = email;
 		this.address = new Address();
 		this.emergencyContacts = new EmergencyContacts();
 	}
@@ -74,6 +75,6 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", contactNo="
-				+ contactNo + ", address=" + address + ", emergencyContacts=" + emergencyContacts + "]";
+				+ contactNo + ", email=" + email + ", address=" + address + ", emergencyContacts=" + emergencyContacts + "]";
 	}
 }

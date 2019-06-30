@@ -4,6 +4,7 @@
         <title>
             S.S.O.T
         </title>
+        <link rel="stylesheet" href="../css/styles.css">
         <script src="../js/script.js"></script>
     </head>
     <body>
@@ -13,18 +14,16 @@
         <input type="submit" value="Back" />
     </form>
     <br>
-    <form name="createUserForm" onSubmit="createUser(this)">
-        First name: <input type="text" name="firstName" value="Shruti">
-        <br>
-        Last name: <input type="text" name="lastName" value="Joshi">
-        <br>
-        Email: <input type="text" name="email" value="shruti.joshi@example.com">
-        <br>
-        Password: <input type="text" name="password" value="password">
-        <br><br>
-        <input name="Submit" type="submit" value="Submit">
-    </form>
+    First name: <input type="text" id="firstName" value="Shruti">
+    <br>
+    Last name: <input type="text" id="lastName" value="Joshi">
+    <br>
+    Email: <input type="text" id="email" value="shruti.joshi@example.com">
+    <br>
+    Password: <input type="text" id="password" value="password">
     <br><br>
-    <p id="responseField"></p>
+    <button id="Submit" type="button" onclick="createUser(document.getElementById('firstName').value, document.getElementById('lastName').value, document.getElementById('email').value, document.getElementById('password').value)">Submit</button> 
+    <br><br>
+    <div id="createUserResponseField"></div>
     </body>
 </html>
