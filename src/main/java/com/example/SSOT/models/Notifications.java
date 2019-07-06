@@ -1,5 +1,6 @@
 package com.example.SSOT.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.SSOT.exceptions.ListUnderFlowException;
@@ -8,6 +9,9 @@ import com.example.SSOT.exceptions.NotificationNotFoundException;
 public class Notifications {
 	private static int listSize = 10;
 	private List<Notification> notifictionsList;
+	public Notifications() {
+		this.notifictionsList = new ArrayList<>();
+	}
 	public List<Notification> getNotifictionsList() {
 		return notifictionsList;
 	}
@@ -36,5 +40,9 @@ public class Notifications {
 	}
 	public void clearNotifications() {
 		this.notifictionsList.clear();
+	}
+	@Override
+	public String toString() {
+		return "Notifications [notifictionsList=" + notifictionsList + "]";
 	}
 }

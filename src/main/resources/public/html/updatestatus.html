@@ -1,36 +1,41 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <head>
-    <title>
-        S.S.O.T
-    </title>
-    <link rel="stylesheet" href="../css/styles.css">
-    <script src="../js/script.js"></script>
+  <title>S.S.O.T</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <script src="../js/script.js"></script>
+  <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-
-    <div id="heading">
-        <h2>S.S.O.T</h2>
+  <div id="projectTitle">
+    <h1>S.S.O.T</h1>
+    <h2>Stay Safe Out There</h2>
+    <br><br><br>
+  </div>
+  <div id="topnav">
+    <a class="inactive" id="home" href="../index.html">Home</a>
+      <a class="inactive" id="createUser" href="./createUser.html">Create<br>User</a>
+    <a class="inactive" id="checkNotifications" href="./checkNotifications.html">Check<br>Notifications</a>
+    <a class="active" id="updateStatus" href="#">Update<br>Status</a>
+    <a class="inactive" id="deleteUser" href="./deleteUser.html">Delete<br>User</a>
+  </div>
+  <div class="row" id="updateStatusForm">
+      <br>
+      <table>
+          <tr>
+            <td class="input_labels">Email</td>
+            <td class="input_area">
+                <input type="text" id="email" value="shruti.joshi@example.com">
+            </td>
+          </tr>
+      </table>
+      <div class="submit_area">
+          <button type="button"
+          onclick="updateStatus(document.getElementById('email').value)">Submit</button>
+      </div>
     </div>
-    <form action="../index.html">
-        <input type="submit" value="Back" />
-    </form>
-    <br>
-    <form name="createUserForm" onSubmit="submitForm()">
-        First name:<br>
-        <input type="text" name="firstName" value="Shruti">
-        <br>
-        Last name:<br>
-        <input type="text" name="lastName" value="Joshi">
-        <br>
-        Email:<br>
-        <input type="text" name="email" value="shruti.joshi@example.com">
-        <br><br>
-        <input name="Submit" type="submit" value="Submit">
-    </form>
 </body>
 
 </html>
