@@ -112,9 +112,8 @@ public class NotificationService {
 				for (User emergencyContact: user.getEmergencyContacts().getEmergencyContacts()) {
 					emergencyContact.getNotifications().addNotification(notification);
 				}
-			}
-			if (notify)
 				return new UpdateStatusResponse(HttpStatus.OK, "User status updated with warning", user.getUserId());
+			}
 			return new UpdateStatusResponse(HttpStatus.OK, "User status updated without warning", user.getUserId());
 		} catch(Exception e) {
 			System.out.println(e);
