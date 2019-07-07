@@ -12,17 +12,27 @@ public class User {
 	private Notifications notifications;
 	private Location location;
 	private EmergencyContacts emergencyContacts;
-	public User(String firstName, String lastName, String email) {
+	private String weather;
+	public User(String firstName, String lastName, String email, String locationName) {
 		super();
 		this.userId = UUID.randomUUID();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.address = new Address();
+		this.notifications = new Notifications();
+		this.location = new Location(locationName);
 		this.emergencyContacts = new EmergencyContacts();
+		this.weather = "Unknown";
+	}
+	public String getWeather() {
+		return weather;
+	}
+	public void setWeather(String weather) {
+		this.weather = weather;
 	}
 	public Location getLocation() {
-		return location;
+		return this.location;
 	}
 	public void setLocation(Location location) {
 		this.location = location;
@@ -74,7 +84,8 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", contactNo="
-				+ contactNo + ", email=" + email + ", address=" + address + ", emergencyContacts=" + emergencyContacts + "]";
+		return "User [userId=" + userId + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", contactNo=" + contactNo + ", address=" + address + ", notifications=" + notifications
+				+ ", location=" + location + ", emergencyContacts=" + emergencyContacts + ", weather=" + weather + "]";
 	}
 }

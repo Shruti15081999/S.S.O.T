@@ -17,11 +17,11 @@
   <div id="topnav">
     <a class="inactive" id="home" href="../index.html">Home</a>
       <a class="inactive" id="createUser" href="./createUser.html">Create<br>User</a>
-    <a class="inactive" id="checkNotifications" href="./checkNotifications.html">Check<br>Notifications</a>
+    <a class="active" id="checkNotifications" href="#">Check<br>Notifications</a>
     <a class="inactive" id="updateStatus" href="./updateStatus.html">Update<br>Status</a>
-    <a class="active" id="deleteUser" href="#">Delete<br>User</a>
+    <a class="inactive" id="deleteUser" href="./deleteUser.html">Delete<br>User</a>
   </div>
-  <div class="row" id="deleteUserForm">
+  <div class="row" id="checkNotificationsForm">
       <br>
       <table>
           <tr>
@@ -33,7 +33,7 @@
       </table>
       <div class="submit_area">
           <button type="button"
-          onclick="deleteUser(document.getElementById('email').value)">Submit</button>
+          onclick="checkNotifications(document.getElementById('email').value)">Submit</button>
       </div>
     </div>
 </body>

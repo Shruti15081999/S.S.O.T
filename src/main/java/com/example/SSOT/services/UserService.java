@@ -38,6 +38,7 @@ public class UserService {
 			}
 		}
 	}
+
 	public static NewUserResponse addUser(NewUserRequest newUserRequest) {
 		try {
 			if (newUserRequest.getFirstName() == null) {
@@ -46,10 +47,12 @@ public class UserService {
 				throw new NullValueException("No Last Name provided");
 			} else if (newUserRequest.getEmail() == null) {
 				throw new NullValueException("No Email provided");
+			} else if (newUserRequest.getLocationName() == null) {
+				throw new NullValueException("No location provided");
 			} else if (Users.getUserList().containsKey((newUserRequest.getEmail()))) {
 				throw new UserAlreadyExists("User with email " + newUserRequest.getEmail() + " already exists");
 			}
-			User user = new User(newUserRequest.getFirstName(), newUserRequest.getLastName(), newUserRequest.getEmail());
+			User user = new User(newUserRequest.getFirstName(), newUserRequest.getLastName(), newUserRequest.getEmail(), newUserRequest.getLocationName());
 			Users.addUser(user);
 			System.out.println(user);
 			return new NewUserResponse(HttpStatus.OK, "User created with email " + newUserRequest.getEmail(), user.getUserId());
@@ -62,6 +65,7 @@ public class UserService {
 			}
 		}
 	}
+
 	public static DeleteUserResponse deleteUser(DeleteUserRequest deleteUserRequest) {
 		try {
 			if (deleteUserRequest.getEmail() == null) {
@@ -87,6 +91,7 @@ public class UserService {
 			}
 		}
 	}
+
 	public static EditUserResponse editUser(EditUserRequest editUserRequest) {
 		try {
 			if (editUserRequest.getEmail() == null) {

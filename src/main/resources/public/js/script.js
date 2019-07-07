@@ -7,11 +7,9 @@ function userDetails(email) {
             response = JSON.parse(this.responseText)
             if (this.status == 200) {
                 var user = response.user
-                document.getElementById('userDetailsResponseField').innerHTML = response.message
-                + " First Name: " + user.firstName
-                + " Last Name: " + user.lastName;
+                alert(response.message + " First Name: " + user.firstName  + " Last Name: " + user.lastName);
             } else {
-                document.getElementById('userDetailsResponseField').innerHTML = response.message;
+                alert(response.message);
             }
         }
     }; 
@@ -19,11 +17,33 @@ function userDetails(email) {
     request.send();
 }
 
+function checkNotifications(email) {
+    request.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            response = JSON.parse(this.responseText)
+            alert(response.message);
+        }
+    }; 
+    request.open('GET', 'http://localhost:5000/api/notification/userNotifications?email=' + email, true);
+    request.send();
+}
+
+function updateStatus(email) {
+    request.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            response = JSON.parse(this.responseText)
+            alert(response.message);
+        }
+    }; 
+    request.open('GET', 'http://localhost:5000/api/notification/updateStatus?email=' + email, true);
+    request.send();
+}
+
 function deleteUser(email) {
     request.onreadystatechange = function () {
         if (this.readyState === 4) {
             response = JSON.parse(this.responseText)
-            document.getElementById('deleteUserResponseField').innerHTML = response.message
+            alert(response.message);
         }
     }; 
     request.open('DELETE', 'http://localhost:5000/api/user/deleteUser', true);
@@ -34,11 +54,11 @@ function deleteUser(email) {
     request.send(JSON.stringify(requestBody));
 }
 
-function createUser(firstName, lastName, email, password) {
+function createUser(firstName, lastName, email, location, password) {
     request.onreadystatechange = function () {
         if (this.readyState === 4) {
-            response = JSON.parse(this.responseText)
-            document.getElementById('createUserResponseField').innerHTML = response.message;
+            response = JSON.parse(this.responseText);
+            alert(response.message);
         }
     };
     request.open('POST', 'http://localhost:5000/api/user/addUser', true);
@@ -47,7 +67,8 @@ function createUser(firstName, lastName, email, password) {
         "firstName": firstName,
         "lastName": lastName,
         "email": email,
-        "password": password
+        "password": password,
+        "locationName": location
     };
     request.send(JSON.stringify(requestBody));
 }
