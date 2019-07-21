@@ -122,3 +122,6 @@ html {
   padding: 5%;
   color: beige;
 }
+button {
+	cursor: pointer;
+}

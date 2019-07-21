@@ -8,29 +8,29 @@ import com.example.SSOT.exceptions.NotificationNotFoundException;
 
 public class Notifications {
 	private static int listSize = 10;
-	private List<Notification> notifictionsList;
+	private List<Notification> notificationsList;
 	public Notifications() {
-		this.notifictionsList = new ArrayList<>();
+		this.notificationsList = new ArrayList<>();
 	}
-	public List<Notification> getNotifictionsList() {
-		return notifictionsList;
+	public List<Notification> getNotificationsList() {
+		return notificationsList;
 	}
-	public void setNotifictionsList(List<Notification> notifictionsList) {
-		this.notifictionsList = notifictionsList;
+	public void setNotificationsList(List<Notification> notificationsList) {
+		this.notificationsList = notificationsList;
 	}
 	public static int getListSize() {
 		return listSize;
 	}
 	public void addNotification(Notification notification) {
-		if (this.notifictionsList.size() == listSize) {
-			this.notifictionsList.remove(0);
+		if (this.notificationsList.size() == listSize) {
+			this.notificationsList.remove(0);
 		}
-		this.notifictionsList.add(notification);
+		this.notificationsList.add(notification);
 	}
 	public void deleteNotification(Notification notification) throws NotificationNotFoundException, ListUnderFlowException {
-		if (this.notifictionsList.size() > 0) {
-			if (this.notifictionsList.contains(notification)) {
-				this.notifictionsList.remove(notification);
+		if (this.notificationsList.size() > 0) {
+			if (this.notificationsList.contains(notification)) {
+				this.notificationsList.remove(notification);
 			} else {
 				throw new NotificationNotFoundException("Notification not found");
 			}
@@ -39,10 +39,10 @@ public class Notifications {
 		}
 	}
 	public void clearNotifications() {
-		this.notifictionsList.clear();
+		this.notificationsList.clear();
 	}
 	@Override
 	public String toString() {
-		return "Notifications [notifictionsList=" + notifictionsList + "]";
+		return "Notifications [notificationsList=" + notificationsList + "]";
 	}
 }
