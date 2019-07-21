@@ -21,7 +21,12 @@ function checkNotifications(email) {
     request.onreadystatechange = function () {
         if (this.readyState === 4) {
             response = JSON.parse(this.responseText)
-            alert(response.message);
+            data = {
+                message: response.message,
+                notifications: response.notifications.notificationsList
+            }
+            console.log(data)
+            alert(JSON.stringify(data));
         }
     }; 
     request.open('GET', 'http://localhost:5000/api/notification/userNotifications?email=' + email, true);
@@ -69,6 +74,22 @@ function createUser(firstName, lastName, email, location, password) {
         "email": email,
         "password": password,
         "locationName": location
+    };
+    request.send(JSON.stringify(requestBody));
+}
+
+function addEmergencyContact(userEmail, emergencyContactEmail) {
+    request.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            response = JSON.parse(this.responseText);
+            alert(response.message);
+        }
+    };
+    request.open('POST', 'http://localhost:5000/api/emergencycontact/addEmergencyContact', true);
+    request.setRequestHeader("Content-Type", "application/json");
+    var requestBody = {
+        "userEmail": userEmail,
+        "emergencyContactEmail": emergencyContactEmail
     };
     request.send(JSON.stringify(requestBody));
 }

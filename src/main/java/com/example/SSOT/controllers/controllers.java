@@ -30,6 +30,8 @@ import com.example.SSOT.services.UserService;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
 public class controllers {
+	
+	
 	@GetMapping(value = "/api/user/userDetails")
 	public ResponseEntity<ResponseJSON> userDetails(@RequestParam String email) {
 		System.out.println(email);
