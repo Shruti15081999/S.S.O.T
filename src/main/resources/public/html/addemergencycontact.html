@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>S.S.O.T | Update Status</title>
+  <title>S.S.O.T | Add Emergency Contact</title>
   <link rel="stylesheet" href="../css/styles.css">
   <script src="../js/script.js"></script>
   <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1">
@@ -16,25 +16,24 @@
   </div>
   <div id="topnav">
     <a class="inactive" id="home" href="../index.html">Home</a>
-    <a class="inactive" id="addEmergencyContact" href="./addemergencycontact.html">Add<br>Emergency<br>Contact</a>
+    <a class="active" id="addEmergencyContact" href="#">Add<br>Emergency<br>Contact</a>
     <a class="inactive" id="checkNotifications" href="./checkNotifications.html">Check<br>Notifications</a>
-    <a class="active" id="updateStatus" href="#">Update<br>Status</a>
+    <a class="inactive" id="updateStatus" href="./updateStatus.html">Update<br>Status</a>
     <a class="inactive" id="logout" onclick="logout()">Logout</a>
   </div>
-  <div class="row" id="updateStatusForm">
-    <p id="updateStatusResponse"></p>
+  <div class="row" id="addEmergencyContactForm">
       <br>
       <table>
           <tr>
-            <td class="input_labels">Location</td>
+            <td class="input_labels">Emergency Contact Email</td>
             <td>
-                <input type="text" id="location" value="bangalore">
+                <input type="text" id="emergencyContactEmail" value="shrutijoshi@example.com">
             </td>
           </tr>
       </table>
-      <div class="submit_area">
+      <div class="submit_area" id="submit">
           <button type="button"
-          onclick="updateStatus(document.getElementById('location').value)">Update Status</button>
+          onclick="addEmergencyContact(document.getElementById('emergencyContactEmail').value)">Submit</button>
       </div>
     </div>
 </body>

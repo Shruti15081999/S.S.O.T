@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>S.S.O.T | Login</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/script.js"></script>
+    <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div id="projectTitle">
+        <h1>S.S.O.T</h1>
+        <h2>Stay Safe Out There</h2>
+        <br><br>
+        <h2> Login </h2>
+    </div>
+    <div class="row" id="login">
+        <table>
+            <tr>
+                <td class="input_labels">Email</td>
+                <td class="input_area">
+                    <input type="text" id="email" value="shruti.joshi@example.com" placeholder="Email">
+                </td>
+            </tr>
+            <tr>
+                <td class="input_labels">Password</td>
+                <td>
+                    <input type="password" id="password" value="password" placeholder="Password">
+                </td>
+            </tr>
+        </table>
+        <div class="submit_area">
+            <button type="button"
+                onclick="login(document.getElementById('email').value, document.getElementById('password').value)">Submit</button>
+        </div>
+        <div id="registerLink">
+            <p>
+                <a href="./createuser.html">or Register here</a>
+            </p>
+        </div>
+    </div>
+
+</html>

@@ -17,6 +17,8 @@ import com.example.SSOT.models.rest.DeleteUserRequest;
 import com.example.SSOT.models.rest.DeleteUserResponse;
 import com.example.SSOT.models.rest.EditUserRequest;
 import com.example.SSOT.models.rest.EditUserResponse;
+import com.example.SSOT.models.rest.LoginRequest;
+import com.example.SSOT.models.rest.LoginResponse;
 import com.example.SSOT.models.rest.NewUserRequest;
 import com.example.SSOT.models.rest.NewUserResponse;
 import com.example.SSOT.models.rest.ResponseJSON;
@@ -31,10 +33,13 @@ import com.example.SSOT.services.UserService;
 @Controller
 public class controllers {
 	
-	
+	@PostMapping(value = "/api/user/login")
+	public ResponseEntity<ResponseJSON> login(@RequestBody LoginRequest loginRequest) {
+		LoginResponse valid = UserService.login(loginRequest);
+		return new ResponseEntity<ResponseJSON>(valid, valid.getHttpStatus());
+	}
 	@GetMapping(value = "/api/user/userDetails")
 	public ResponseEntity<ResponseJSON> userDetails(@RequestParam String email) {
-		System.out.println(email);
 		UserDetailsResponse userDetailsResponse = UserService.getUserDetails(email);
 		return new ResponseEntity<ResponseJSON>(userDetailsResponse, userDetailsResponse.getHttpStatus());
 	}
@@ -69,8 +74,8 @@ public class controllers {
 		return new ResponseEntity<ResponseJSON>(userNotificationResponse, userNotificationResponse.getHttpStatus());
 	}
 	@GetMapping(value = "/api/notification/updateStatus")
-	public ResponseEntity<ResponseJSON> updateStatus(@RequestParam(required = true) String email) {
-		UpdateStatusResponse updateStatusResponse = NotificationService.updateStatus(email);
+	public ResponseEntity<ResponseJSON> updateStatus(@RequestParam(required = true) String email, @RequestParam String location) {
+		UpdateStatusResponse updateStatusResponse = NotificationService.updateStatus(email, location);
 		return new ResponseEntity<ResponseJSON>(updateStatusResponse, updateStatusResponse.getHttpStatus());
 	}
 }

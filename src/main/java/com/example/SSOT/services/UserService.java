@@ -8,11 +8,14 @@ import com.example.SSOT.exceptions.NullValueException;
 import com.example.SSOT.exceptions.UserAlreadyExists;
 import com.example.SSOT.exceptions.UserNotFoundException;
 import com.example.SSOT.models.User;
+import com.example.SSOT.models.UserCredentials;
 import com.example.SSOT.models.Users;
 import com.example.SSOT.models.rest.DeleteUserRequest;
 import com.example.SSOT.models.rest.DeleteUserResponse;
 import com.example.SSOT.models.rest.EditUserRequest;
 import com.example.SSOT.models.rest.EditUserResponse;
+import com.example.SSOT.models.rest.LoginRequest;
+import com.example.SSOT.models.rest.LoginResponse;
 import com.example.SSOT.models.rest.NewUserRequest;
 import com.example.SSOT.models.rest.NewUserResponse;
 import com.example.SSOT.models.rest.UserDetailsResponse;
@@ -54,6 +57,7 @@ public class UserService {
 			}
 			User user = new User(newUserRequest.getFirstName(), newUserRequest.getLastName(), newUserRequest.getEmail(), newUserRequest.getLocationName());
 			Users.addUser(user);
+			UserCredentials.addCredentials(newUserRequest.getEmail(), newUserRequest.getPassword());
 			System.out.println(user);
 			return new NewUserResponse(HttpStatus.OK, "User created with email " + newUserRequest.getEmail(), user.getUserId());
 		} catch(Exception e) {
@@ -77,6 +81,7 @@ public class UserService {
 			System.out.println(user);
 			String email = user.getEmail();
 			UUID userId = user.getUserId();
+			UserCredentials.removeCredentials(email);
 			Users.deleteUser(email);
 			user = null;
 			return new DeleteUserResponse(HttpStatus.OK, "User deleted associated to email " + email, userId);
@@ -122,6 +127,31 @@ public class UserService {
 				return new EditUserResponse(HttpStatus.NOT_FOUND, e.getMessage(), null);
 			} else {
 				return new EditUserResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Some error occured", null);
+			}
+		}
+	}
+
+	public static LoginResponse login(LoginRequest loginRequest) {
+		try {
+			if (loginRequest.getEmail() == null) {
+				throw new NullValueException("No Email provided");
+			} else if(!Users.getUserList().containsKey(loginRequest.getEmail())) {
+				throw new UserNotFoundException("No User with email " + loginRequest.getEmail() + " exists");
+			}
+			boolean valid = UserCredentials.login(loginRequest.getEmail(), loginRequest.getPassword());
+			if (valid) {
+				return new LoginResponse(HttpStatus.OK, "Welcome");
+			} else {
+				return new LoginResponse(HttpStatus.UNAUTHORIZED, "Incorrect credentials");
+			}
+		} catch(Exception e) {
+			System.out.println(e);
+			if (e instanceof NullValueException) {
+				return new LoginResponse(HttpStatus.BAD_REQUEST, e.getMessage());
+			} else if (e instanceof UserNotFoundException) {
+				return new LoginResponse(HttpStatus.NOT_FOUND, e.getMessage());
+			} else {
+				return new LoginResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Some error occured");
 			}
 		}
 	}

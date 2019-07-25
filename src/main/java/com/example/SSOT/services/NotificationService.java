@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 
 import com.example.SSOT.exceptions.NullValueException;
 import com.example.SSOT.exceptions.UserNotFoundException;
+import com.example.SSOT.models.Location;
 import com.example.SSOT.models.Notification;
 import com.example.SSOT.models.User;
 import com.example.SSOT.models.Users;
@@ -95,7 +96,7 @@ public class NotificationService {
 		return status;
 	}
 	
-	public static UpdateStatusResponse updateStatus(String email) {
+	public static UpdateStatusResponse updateStatus(String email, String location) {
 		try {
 			if (email == null) {
 				throw new NullValueException("No Email provided");
@@ -103,6 +104,9 @@ public class NotificationService {
 				throw new UserNotFoundException("No User with email " + email + "exists");
 			}
 			User user = Users.getUser(email);
+			if (location != null) {
+				user.setLocation(new Location(location));
+			}
 			boolean notify = getWeatherUpdate(user);
 			Notification notification = new Notification(user.getFirstName() + " "
 														+ user.getLastName() + " might be stuck in "
@@ -112,7 +116,8 @@ public class NotificationService {
 				for (User emergencyContact: user.getEmergencyContacts().getEmergencyContacts()) {
 					emergencyContact.getNotifications().addNotification(notification);
 				}
-				return new UpdateStatusResponse(HttpStatus.OK, "User status updated with warning", user.getUserId());
+				String warningMessage = "You might be stuck in " + user.getWeather();
+				return new UpdateStatusResponse(HttpStatus.OK, "User status updated with warning\n" + warningMessage, user.getUserId());
 			}
 			return new UpdateStatusResponse(HttpStatus.OK, "User status updated without warning", user.getUserId());
 		} catch(Exception e) {
