@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Welcompe Page</title>
+  <title>S.S.O.T | Check Notifications</title>
   <link rel="stylesheet" href="../css/styles.css">
   <script src="../js/script.js"></script>
   <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1">
@@ -16,25 +16,18 @@
   </div>
   <div id="topnav">
     <a class="inactive" id="home" href="../index.html">Home</a>
-    <a class="inactive" id="createUser" href="./createUser.html">Create<br>User</a>
     <a class="inactive" id="addEmergencyContact" href="./addemergencycontact.html">Add<br>Emergency<br>Contact</a>
     <a class="active" id="checkNotifications" href="#">Check<br>Notifications</a>
     <a class="inactive" id="updateStatus" href="./updateStatus.html">Update<br>Status</a>
-    <a class="inactive" id="deleteUser" href="./deleteUser.html">Delete<br>User</a>
+    <a class="inactive" id="logout" onclick="logout()">Logout</a>
   </div>
   <div class="row" id="checkNotificationsForm">
       <br>
-      <table>
-          <tr>
-            <td class="input_labels">Email</td>
-            <td class="input_area">
-                <input type="text" id="email" value="shruti.joshi@example.com">
-            </td>
-          </tr>
+      <table id="notificationTable">
       </table>
       <div class="submit_area">
           <button type="button"
-          onclick="checkNotifications(document.getElementById('email').value)">Submit</button>
+          onclick="checkNotifications()">Check Notifications</button>
       </div>
     </div>
 </body>

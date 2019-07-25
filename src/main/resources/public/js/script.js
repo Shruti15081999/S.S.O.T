@@ -1,23 +1,63 @@
 var request = new XMLHttpRequest();
 var response = null;
 
-function userDetails(email) {
+function validateemail(email) {
+    var atposition = email.indexOf("@");
+    var dotposition = email.lastIndexOf(".");
+    if (atposition < 1 || dotposition < atposition + 2 || dotposition + 2 >= email.length) {
+        return false;
+    }
+    return true;
+}
+
+function login(email, password) {
+    if (!validateemail(email)) {
+        alert("Invalid email");
+        return;
+    }
+    request.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            response = JSON.parse(this.responseText);
+            alert(this.responseText);
+            sessionStorage.setItem('user', email);
+            if (response.httpStatus == "OK") {
+                userDetails();
+            }
+        }
+    };
+    request.open('POST', 'http://localhost:5000/api/user/login', true);
+    request.setRequestHeader("Content-Type", "application/json");
+    var requestBody = {
+        "email": email,
+        "password": password
+    };
+    request.send(JSON.stringify(requestBody));
+}
+
+function logout() {
+    sessionStorage.setItem("user", "");
+    window.location.replace("../index.html");
+}
+
+function userDetails() {
     request.onreadystatechange = function () {
         if (this.readyState === 4) {
             response = JSON.parse(this.responseText)
             if (this.status == 200) {
                 var user = response.user
-                alert(response.message + " First Name: " + user.firstName  + " Last Name: " + user.lastName);
+                alert(response.message + " First Name: " + user.firstName + " Last Name: " + user.lastName);
+                sessionStorage.setItem('userDetails', response.message);
             } else {
                 alert(response.message);
             }
+            window.location.replace("./home.html");
         }
-    }; 
-    request.open('GET', 'http://localhost:5000/api/user/userDetails?email=' + email, true);
+    };
+    request.open('GET', 'http://localhost:5000/api/user/userDetails?email=' + sessionStorage.getItem("user"), true);
     request.send();
 }
 
-function checkNotifications(email) {
+function checkNotifications() {
     request.onreadystatechange = function () {
         if (this.readyState === 4) {
             response = JSON.parse(this.responseText)
@@ -28,19 +68,20 @@ function checkNotifications(email) {
             console.log(data)
             alert(JSON.stringify(data));
         }
-    }; 
-    request.open('GET', 'http://localhost:5000/api/notification/userNotifications?email=' + email, true);
+    };
+    request.open('GET', 'http://localhost:5000/api/notification/userNotifications?email=' + sessionStorage.getItem("user"), true);
     request.send();
 }
 
-function updateStatus(email) {
+function updateStatus(location) {
     request.onreadystatechange = function () {
         if (this.readyState === 4) {
             response = JSON.parse(this.responseText)
             alert(response.message);
+            document.getElementById('updateStatusResponse').innerHTML = response.message;
         }
-    }; 
-    request.open('GET', 'http://localhost:5000/api/notification/updateStatus?email=' + email, true);
+    };
+    request.open('GET', 'http://localhost:5000/api/notification/updateStatus?email=' + sessionStorage.getItem("user") + '&location=' + location, true);
     request.send();
 }
 
@@ -50,7 +91,7 @@ function deleteUser(email) {
             response = JSON.parse(this.responseText)
             alert(response.message);
         }
-    }; 
+    };
     request.open('DELETE', 'http://localhost:5000/api/user/deleteUser', true);
     request.setRequestHeader("Content-Type", "application/json");
     var requestBody = {
@@ -64,6 +105,7 @@ function createUser(firstName, lastName, email, location, password) {
         if (this.readyState === 4) {
             response = JSON.parse(this.responseText);
             alert(response.message);
+            logout();
         }
     };
     request.open('POST', 'http://localhost:5000/api/user/addUser', true);
@@ -78,7 +120,7 @@ function createUser(firstName, lastName, email, location, password) {
     request.send(JSON.stringify(requestBody));
 }
 
-function addEmergencyContact(userEmail, emergencyContactEmail) {
+function addEmergencyContact(emergencyContactEmail) {
     request.onreadystatechange = function () {
         if (this.readyState === 4) {
             response = JSON.parse(this.responseText);
@@ -88,9 +130,8 @@ function addEmergencyContact(userEmail, emergencyContactEmail) {
     request.open('POST', 'http://localhost:5000/api/emergencycontact/addEmergencyContact', true);
     request.setRequestHeader("Content-Type", "application/json");
     var requestBody = {
-        "userEmail": userEmail,
+        "userEmail": sessionStorage.getItem("user"),
         "emergencyContactEmail": emergencyContactEmail
     };
     request.send(JSON.stringify(requestBody));
 }
-

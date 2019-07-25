@@ -12,15 +12,8 @@
   <div id="projectTitle">
     <h1>S.S.O.T</h1>
     <h2>Stay Safe Out There</h2>
-    <br><br><br>
-  </div>
-  <div id="topnav">
-    <a class="inactive" id="home" href="../index.html">Home</a>
-    <a class="active" id="createUser" href="#">Create<br>User</a>
-    <a class="inactive" id="addEmergencyContact" href="./addemergencycontact.html">Add<br>Emergency<br>Contact</a>
-    <a class="inactive" id="checkNotifications" href="./checkNotifications.html">Check<br>Notifications</a>
-    <a class="inactive" id="updateStatus" href="./updateStatus.html">Update<br>Status</a>
-    <a class="inactive" id="deleteUser" href="./deleteUser.html">Delete<br>User</a>
+    <br><br>
+    <h2> Create Account </h2>
   </div>
   <div class="row" id="createUserForm">
       <br>
@@ -58,7 +51,11 @@
       </table>
       <div class="submit_area">
           <button type="button"
-          onclick="createUser(document.getElementById('firstName').value, document.getElementById('lastName').value, document.getElementById('email').value,document.getElementById('location').value,  document.getElementById('password').value)">Submit</button>
+          onclick="createUser(document.getElementById('firstName').value, document.getElementById('lastName').value, document.getElementById('email').value,document.getElementById('location').value,  document.getElementById('password').value)">Create Account</button>
+      </div>
+      <div class="submit_area">
+          <button type="button"
+          onclick="logout()">Back</button>
       </div>
     </div>
 </body>
