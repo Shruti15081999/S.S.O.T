@@ -18,10 +18,11 @@ function login(email, password) {
     request.onreadystatechange = function () {
         if (this.readyState === 4) {
             response = JSON.parse(this.responseText);
-            alert(this.responseText);
             sessionStorage.setItem('user', email);
             if (response.httpStatus == "OK") {
-                userDetails();
+                window.location.replace("./home.html");
+            } else {
+                alert(response.message);
             }
         }
     };
@@ -45,12 +46,18 @@ function userDetails() {
             response = JSON.parse(this.responseText)
             if (this.status == 200) {
                 var user = response.user
-                alert(response.message + " First Name: " + user.firstName + " Last Name: " + user.lastName);
-                sessionStorage.setItem('userDetails', response.message);
+                sessionStorage.setItem('userDetails', response.user);
+                document.getElementById('firstName').value = response.user.firstName;
+                document.getElementById('lastName').value = response.user.lastName;
+                document.getElementById('email').value = response.user.email;
+                document.getElementById('addressLine1').value = response.user.address.addressLine1;
+                document.getElementById('addressLine2').value = response.user.address.addressLine2;
+                document.getElementById('city').value = response.user.address.city;
+                document.getElementById('state').value = response.user.address.state;
+                document.getElementById('country').value = response.user.address.country;
             } else {
                 alert(response.message);
             }
-            window.location.replace("./home.html");
         }
     };
     request.open('GET', 'http://localhost:5000/api/user/userDetails?email=' + sessionStorage.getItem("user"), true);
@@ -61,12 +68,15 @@ function checkNotifications() {
     request.onreadystatechange = function () {
         if (this.readyState === 4) {
             response = JSON.parse(this.responseText)
-            data = {
-                message: response.message,
-                notifications: response.notifications.notificationsList
-            }
-            console.log(data)
-            alert(JSON.stringify(data));
+            notifications = response.notifications.notificationsList
+            console.log(notifications)
+            let table = ""
+            notifications.forEach(notification => {
+                table += "<tr>"
+                    + "<td>" + notification.message + "</td>"
+                    + "</tr>"
+            });
+            document.getElementById('notificationTable').innerHTML = table;
         }
     };
     request.open('GET', 'http://localhost:5000/api/notification/userNotifications?email=' + sessionStorage.getItem("user"), true);
@@ -116,6 +126,30 @@ function createUser(firstName, lastName, email, location, password) {
         "email": email,
         "password": password,
         "locationName": location
+    };
+    request.send(JSON.stringify(requestBody));
+}
+
+function updateUser(firstName, lastName, email, addressLine1, addressLine2, city, state, country) {
+    request.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            response = JSON.parse(this.responseText);
+            alert(response.message);
+        }
+    };
+    request.open('POST', 'http://localhost:5000/api/user/editUser', true);
+    request.setRequestHeader("Content-Type", "application/json");
+    var requestBody = {
+        "firstName": firstName,
+        "lastName": lastName,
+        "email": email,
+        "address": {
+            "addressLine1": addressLine1,
+            "addressLine2": addressLine2,
+            "city": city,
+            "state": state,
+            "country": country
+        }
     };
     request.send(JSON.stringify(requestBody));
 }

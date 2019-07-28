@@ -119,7 +119,8 @@ public class NotificationService {
 				String warningMessage = "You might be stuck in " + user.getWeather();
 				return new UpdateStatusResponse(HttpStatus.OK, "User status updated with warning\n" + warningMessage, user.getUserId());
 			}
-			return new UpdateStatusResponse(HttpStatus.OK, "User status updated without warning", user.getUserId());
+			String warningMessage = "Weather reported is " + user.getWeather();
+			return new UpdateStatusResponse(HttpStatus.OK, "User status updated without warning\n" + warningMessage, user.getUserId());
 		} catch(Exception e) {
 			System.out.println(e);
 			if (e instanceof NullValueException) {

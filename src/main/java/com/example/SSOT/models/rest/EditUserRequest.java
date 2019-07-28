@@ -6,7 +6,6 @@ public class EditUserRequest {
 	private String email;
 	private String firstName;
 	private String lastName;
-	private int contactNo;
 	private Address address;
 	public String getEmail() {
 		return email;
@@ -26,17 +25,15 @@ public class EditUserRequest {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public int getContactNo() {
-		return contactNo;
-	}
-	public void setContactNo(int contactNo) {
-		this.contactNo = contactNo;
-	}
 	public Address getAddress() {
 		return address;
 	}
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-
+	@Override
+	public String toString() {
+		return "EditUserRequest [email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", address="
+				+ address + "]";
+	}
 }
