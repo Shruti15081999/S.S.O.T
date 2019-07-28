@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="../css/styles.css">
   <script src="../js/script.js"></script>
   <script type="text/javascript">
-    document.getElementById('details').innerHTML = sessionStorage.getItem('userDetails');
+    window.onload = userDetails;
   </script>
   <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1">
 </head>
@@ -24,18 +24,75 @@
     <a class="inactive" id="updateStatus" href="./updateStatus.html">Update<br>Status</a>
     <a class="inactive" id="logout" onclick="logout()">Logout</a>
   </div>
-
   <div class="row" id="wrap">
-    <div class="column"  id="left_col">
-      <p id="details">
+    <div class="column" id="left_col">
+      <p>
+        <img src="../assets/female.png" style="width: 20%; height: 20%;">
+        <br>
         Stay safe with accurate and reliable weather Anywhere, Anytime!
         Up to the minute Weather reports available right in your mobiles and PC.
+        Get your weather updates personalized. Weather alerts sent right your loved ones in case of emergencies
       </p>
     </div>
     <div class="column" id="right_col">
-      <p>
-        Get your weather updates personalized. Weather alerts sent right your loved ones in case of emergencies
-      </p>
+      <table>
+        <tr>
+          <td class="input_labels">First name</td>
+          <td class="input_area">
+            <input type="text" id="firstName">
+          </td>
+        </tr>
+        <tr>
+          <td class="input_labels">Last name</td>
+          <td>
+            <input type="text" id="lastName">
+          </td>
+        </tr>
+        <tr>
+          <td class="input_labels">Email</td>
+          <td class="input_area">
+            <input type="text" id="email">
+          </td>
+        </tr>
+      </table>
+      <div style="text-align: center">Address</div>
+      <table>
+        <tr>
+          <td class="input_labels">Adress Line 1</td>
+          <td class="input_area">
+            <input type="text" id="addressLine1">
+          </td>
+        </tr>
+        <tr>
+          <td class="input_labels">Adress Line 2</td>
+          <td class="input_area">
+            <input type="text" id="addressLine2">
+          </td>
+        </tr>
+        <tr>
+          <td class="input_labels">City</td>
+          <td class="input_area">
+            <input type="text" id="city">
+          </td>
+        </tr>
+        <tr>
+          <td class="input_labels">State</td>
+          <td class="input_area">
+            <input type="text" id="state">
+          </td>
+        </tr>
+        <tr>
+          <td class="input_labels">Country</td>
+          <td class="input_area">
+            <input type="text" id="country">
+          </td>
+        </tr>
+      </table>
+      <div class="submit_area">
+        <button type="button"
+          onclick="updateUser(document.getElementById('firstName').value, document.getElementById('lastName').value, document.getElementById('email').value, document.getElementById('addressLine1').value, document.getElementById('addressLine2').value, document.getElementById('city').value, document.getElementById('state').value, document.getElementById('country').value)">Update
+          Account</button>
+      </div>
     </div>
   </div>
 </body>
